@@ -26,7 +26,7 @@ A professional web application for marketing teams and sales analysts to predict
 1. **Clone the repository**
    ```bash
    git clone <repo-url>
-   cd heart_failure_prediction
+   cd Digital-Marketing-Tracker
    ```
 2. **Create a virtual environment**
    ```bash
