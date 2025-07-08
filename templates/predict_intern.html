@@ -1,0 +1,273 @@
+{% extends "base_intern.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1 class="mb-4">Lead Conversion Prediction</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <!-- Prediction Form -->
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>Lead Information Form</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="traffic_entry_point" class="form-label">Traffic Entry Point</label>
+                            <select class="form-select" id="traffic_entry_point" name="traffic_entry_point" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="API">API</option>
+                                <option value="Landing Page Submission">Landing Page Submission</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="ad_source" class="form-label">Ad Source</label>
+                            <select class="form-select" id="ad_source" name="ad_source" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="Olark Chat">Olark Chat</option>
+                                <option value="Organic Search">Organic Search</option>
+                                <option value="Direct Traffic">Direct Traffic</option>
+                                <option value="Google">Google</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email_opt_out" class="form-label">Email Opt-Out</label>
+                            <select class="form-select" id="email_opt_out" name="email_opt_out" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone_opt_out" class="form-label">Phone Opt-Out</label>
+                            <select class="form-select" id="phone_opt_out" name="phone_opt_out" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="website_visits" class="form-label">Website Visits</label>
+                            <input type="number" class="form-control" id="website_visits" name="website_visits" min="0" step="1" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="time_on_site" class="form-label">Time on Site (seconds)</label>
+                            <input type="number" class="form-control" id="time_on_site" name="time_on_site" min="0" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="pages_per_session" class="form-label">Pages per Session</label>
+                            <input type="number" class="form-control" id="pages_per_session" name="pages_per_session" min="0" step="0.1" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="last_engagement_type" class="form-label">Last Engagement Type</label>
+                            <select class="form-select" id="last_engagement_type" name="last_engagement_type" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="Page Visited on Website">Page Visited on Website</option>
+                                <option value="Email Opened">Email Opened</option>
+                                <option value="Unreachable">Unreachable</option>
+                                <option value="Converted to Lead">Converted to Lead</option>
+                                <option value="Olark Chat Conversation">Olark Chat Conversation</option>
+                                <option value="Email Bounced">Email Bounced</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="last_conversion_signal" class="form-label">Last Conversion Signal</label>
+                            <select class="form-select" id="last_conversion_signal" name="last_conversion_signal" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="Modified">Modified</option>
+                                <option value="Email Opened">Email Opened</option>
+                                <option value="Page Visited on Website">Page Visited on Website</option>
+                                <option value="Email Bounced">Email Bounced</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="came_from_paid_ads" name="came_from_paid_ads" value="Yes">
+                                <label class="form-check-label" for="came_from_paid_ads">
+                                    Came from Paid Ads
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="referred_by_client" name="referred_by_client" value="Yes">
+                                <label class="form-check-label" for="referred_by_client">
+                                    Referred by Client
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="subscribed_to_newsletter" name="subscribed_to_newsletter" value="Yes">
+                                <label class="form-check-label" for="subscribed_to_newsletter">
+                                    Subscribed to Newsletter
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="requested_business_content" name="requested_business_content" value="Yes">
+                                <label class="form-check-label" for="requested_business_content">
+                                    Requested Business Content
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="requested_marketing_content" name="requested_marketing_content" value="Yes">
+                                <label class="form-check-label" for="requested_marketing_content">
+                                    Requested Marketing Content
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">Predict Conversion</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        {% if prediction is defined %}
+        <!-- Prediction Results -->
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>Prediction Results</h5>
+            </div>
+            <div class="card-body text-center">
+                {% if prediction == 1 %}
+                <div class="alert alert-success">
+                    <h3>✅ Likely to Convert</h3>
+                    <p>This lead has a high probability of conversion!</p>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <h3>❌ Not Likely to Convert</h3>
+                    <p>This lead has a low probability of conversion.</p>
+                </div>
+                {% endif %}
+
+                <div class="mt-4">
+                    <canvas id="predictionChart" data-probability="{{ probability }}"></canvas>
+                </div>
+
+                <div class="mt-4">
+                    <h5>Recommended Actions:</h5>
+                    <ul class="list-group text-start">
+                        {% if prediction == 1 %}
+                        <li class="list-group-item">Prioritize follow-up with this lead</li>
+                        <li class="list-group-item">Schedule a personalized demo</li>
+                        <li class="list-group-item">Prepare a custom pricing proposal</li>
+                        <li class="list-group-item">Offer premium content access</li>
+                        {% else %}
+                        <li class="list-group-item">Nurture with targeted email campaigns</li>
+                        <li class="list-group-item">Share educational content related to their interests</li>
+                        <li class="list-group-item">Consider special promotions or offers</li>
+                        <li class="list-group-item">Re-engage with new value propositions</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <form action="{{ url_for('generate_report') }}" method="POST" class="mt-4">
+                    <input type="hidden" name="prediction" value="{{ prediction }}">
+                    <input type="hidden" name="probability" value="{{ probability }}">
+                    {% for key, value in form_data.items() %}
+                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endfor %}
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-file-earmark-pdf"></i> Generate PDF Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <!-- Instructions Card -->
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>How It Works</h5>
+            </div>
+            <div class="card-body">
+                <p>Our machine learning model analyzes lead data to predict conversion likelihood:</p>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item">Fill in all the fields in the form</li>
+                    <li class="list-group-item">Click "Predict Conversion"</li>
+                    <li class="list-group-item">View prediction results and recommendations</li>
+                    <li class="list-group-item">Generate a PDF report for your team</li>
+                </ol>
+                
+                <div class="alert alert-info mt-3">
+                    <strong>Note:</strong> This prediction model was trained on historical marketing data from Morocco and has an accuracy of approximately 85%.
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if prediction is defined %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const chartElement = document.getElementById('predictionChart');
+        const ctx = chartElement.getContext('2d');
+        
+        // Get probability from data attribute
+        const probabilityValue = parseFloat(chartElement.getAttribute('data-probability')) || 0;
+        
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Convert', 'Not Convert'],
+                datasets: [{
+                    data: [probabilityValue, 1 - probabilityValue],
+                    backgroundColor: [
+                        'rgba(40, 167, 69, 0.7)',
+                        'rgba(255, 193, 7, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(40, 167, 69, 1)',
+                        'rgba(255, 193, 7, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Conversion Probability'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw;
+                                const percentage = Math.round(value * 100);
+                                return `${context.label}: ${percentage}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base_intern.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1 class="mb-4">Upload Campaign Data</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-light">
+                Upload CSV File
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Campaign CSV File</label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                        <div class="form-text">
+                            Upload a CSV file with the following columns: campaign_name, clicks, impressions, ctr, date
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h5>CSV Format Requirements:</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">File must be in CSV format</li>
+                            <li class="list-group-item">Required columns: campaign_name, clicks, impressions, ctr, date</li>
+                            <li class="list-group-item">Clicks and impressions should be whole numbers</li>
+                            <li class="list-group-item">CTR should be a percentage (e.g. 8.5 for 8.5%)</li>
+                            <li class="list-group-item">Date should be in YYYY-MM-DD format</li>
+                        </ul>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Upload File</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header bg-light">
+                Sample CSV Format
+            </div>
+            <div class="card-body">
+                <pre class="bg-light p-3"><code>campaign_name,clicks,impressions,ctr,date
+Summer Sale 2025,1200,15000,8.0,2025-06-01
+Email Newsletter,800,10000,8.0,2025-06-15
+Social Media Ads,1500,20000,7.5,2025-06-20</code></pre>
+                
+                <p class="mt-3">
+                    <strong>Note:</strong> Uploading a new file will replace the existing campaign data.
+                    Make sure your CSV file follows the correct format to avoid errors.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

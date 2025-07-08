@@ -1,0 +1,134 @@
+{% extends "base_intern.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1 class="mb-4">Campaign Dashboard</h1>
+    </div>
+</div>
+
+<!-- Dashboard Cards -->
+<div class="row mb-4">
+    <!-- Total Campaigns -->
+    <div class="col-md-3 mb-3">
+        <div class="card bg-primary text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Total Campaigns</h5>
+                <h1 class="display-4">{{ total_campaigns }}</h1>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Average CTR -->
+    <div class="col-md-3 mb-3">
+        <div class="card bg-success text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Average CTR</h5>
+                <h1 class="display-4">{{ "%.2f"|format(avg_ctr) }}%</h1>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top Campaign by CTR -->
+    <div class="col-md-3 mb-3">
+        <div class="card bg-info text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Top CTR Campaign</h5>
+                {% if top_ctr_campaign %}
+                    <h3>{{ top_ctr_campaign.campaign_name }}</h3>
+                    <p>CTR: {{ top_ctr_campaign.ctr }}%</p>
+                {% else %}
+                    <p>No campaigns available</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Most Impressions Campaign -->
+    <div class="col-md-3 mb-3">
+        <div class="card bg-warning text-dark h-100">
+            <div class="card-body">
+                <h5 class="card-title">Most Impressions</h5>
+                {% if most_impressions_campaign %}
+                    <h3>{{ most_impressions_campaign.campaign_name }}</h3>
+                    <p>{{ most_impressions_campaign.impressions }} impressions</p>
+                {% else %}
+                    <p>No campaigns available</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row mb-4">
+    <!-- CTR Bar Chart -->
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-light">
+                CTR by Campaign
+            </div>
+            <div class="card-body">
+                <canvas id="ctrChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Impressions Line Chart -->
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-light">
+                Impressions Over Time
+            </div>
+            <div class="card-body">
+                <canvas id="impressionsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Campaigns Table -->
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header bg-light">
+                Campaign Data
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Campaign Name</th>
+                                <th>Clicks</th>
+                                <th>Impressions</th>
+                                <th>CTR (%)</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for campaign in campaigns %}
+                            <tr>
+                                <td>{{ campaign.campaign_name }}</td>
+                                <td>{{ campaign.clicks }}</td>
+                                <td>{{ campaign.impressions }}</td>
+                                <td>{{ campaign.ctr }}</td>
+                                <td>{{ campaign.date }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">No campaign data available</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='charts_intern.js') }}"></script>
+{% endblock %}

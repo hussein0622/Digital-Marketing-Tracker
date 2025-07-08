@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Conversion Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0d6efd;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .report-date {
+            color: #666;
+            font-size: 14px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        h1 {
+            color: #0d6efd;
+        }
+        h2 {
+            color: #0d6efd;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .prediction-box {
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .recommendations {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Digital Marketing Campaign Tracker</div>
+            <div class="report-date">Report Generated: {{ report_date }}</div>
+        </div>
+
+        <div class="section">
+            <h1>Lead Conversion Prediction Report</h1>
+            <p>This report contains the prediction analysis for a potential lead based on our machine learning model.</p>
+        </div>
+
+        <div class="section">
+            <h2>Lead Information</h2>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Traffic Entry Point</td>
+                    <td>{{ form_data.traffic_entry_point }}</td>
+                </tr>
+                <tr>
+                    <td>Ad Source</td>
+                    <td>{{ form_data.ad_source }}</td>
+                </tr>
+                <tr>
+                    <td>Website Visits</td>
+                    <td>{{ form_data.website_visits }}</td>
+                </tr>
+                <tr>
+                    <td>Time on Site (seconds)</td>
+                    <td>{{ form_data.time_on_site }}</td>
+                </tr>
+                <tr>
+                    <td>Pages per Session</td>
+                    <td>{{ form_data.pages_per_session }}</td>
+                </tr>
+                <tr>
+                    <td>Last Engagement Type</td>
+                    <td>{{ form_data.last_engagement_type }}</td>
+                </tr>
+                <tr>
+                    <td>Email Opt-Out</td>
+                    <td>{{ form_data.email_opt_out }}</td>
+                </tr>
+                <tr>
+                    <td>Phone Opt-Out</td>
+                    <td>{{ form_data.phone_opt_out }}</td>
+                </tr>
+                <tr>
+                    <td>Came from Paid Ads</td>
+                    <td>{{ form_data.came_from_paid_ads }}</td>
+                </tr>
+                <tr>
+                    <td>Referred by Client</td>
+                    <td>{{ form_data.referred_by_client }}</td>
+                </tr>
+                <tr>
+                    <td>Subscribed to Newsletter</td>
+                    <td>{{ form_data.subscribed_to_newsletter }}</td>
+                </tr>
+                <tr>
+                    <td>Requested Business Content</td>
+                    <td>{{ form_data.requested_business_content }}</td>
+                </tr>
+                <tr>
+                    <td>Requested Marketing Content</td>
+                    <td>{{ form_data.requested_marketing_content }}</td>
+                </tr>
+                <tr>
+                    <td>Last Conversion Signal</td>
+                    <td>{{ form_data.last_conversion_signal }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Prediction Result</h2>
+            {% if prediction == 1 %}
+            <div class="prediction-box success">
+                ✅ This lead is likely to convert ({{ probability_pct }}% probability)
+            </div>
+            {% else %}
+            <div class="prediction-box warning">
+                ❌ This lead is not likely to convert ({{ probability_pct }}% probability)
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="section recommendations">
+            <h2>Recommended Actions</h2>
+            <ul>
+                {% if prediction == 1 %}
+                <li><strong>Prioritize follow-up:</strong> This lead should receive immediate attention from the sales team.</li>
+                <li><strong>Schedule a personalized demo:</strong> Prepare a tailored demonstration focusing on the lead's specific needs.</li>
+                <li><strong>Prepare a custom pricing proposal:</strong> Create a customized offer that highlights value propositions relevant to this lead.</li>
+                <li><strong>Offer premium content:</strong> Share high-value content that addresses the lead's specific challenges or interests.</li>
+                <li><strong>Consider account-based marketing:</strong> Deploy targeted strategies focused on converting this high-potential lead.</li>
+                {% else %}
+                <li><strong>Nurture with targeted emails:</strong> Implement a strategic email nurturing sequence to build interest over time.</li>
+                <li><strong>Educational content:</strong> Share resources that address common pain points and establish your expertise.</li>
+                <li><strong>Special promotions:</strong> Consider time-limited offers to incentivize engagement.</li>
+                <li><strong>Re-engagement strategy:</strong> If this is an existing lead, try new messaging or value propositions.</li>
+                <li><strong>Segment for future campaigns:</strong> Group with similar leads for targeted nurturing campaigns.</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Model Information</h2>
+            <p>This prediction was made using our machine learning model trained on historical marketing data from Morocco. The model analyzes user behavior patterns, engagement metrics, and conversion signals to estimate the likelihood of conversion.</p>
+        </div>
+
+        <div class="footer">
+            <p>Digital Marketing Campaign Tracker &copy; 2025 | Report ID: {{ report_id }}</p>
+        </div>
+    </div>
+</body>
+</html>
