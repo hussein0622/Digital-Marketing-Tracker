@@ -524,8 +524,12 @@ if __name__ == '__main__':
     # Create initial files if they don't exist
     create_initial_files()
     
-    # Run the app
-    app.run(debug=True)
+if __name__ == '__main__':
+    # Create initial files if they don't exist
+    create_initial_files()
+    
+    # Run the app on all network interfaces
+    app.run(debug=True, host='0.0.0.0', port=5000)
     
     # Run instructions:
     # python app_intern.py
